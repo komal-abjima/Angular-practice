@@ -1,0 +1,79 @@
+<h2>EMPLOYEES LIST</h2>
+<hr>
+<table class="table table-striped" >
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Department</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+
+   <!-- table -->
+   <!-- *ngIf="searchText === '' || prod.name.toLowerCase().includes(searchText)" -->
+      <ng-container *ngFor="let emp of employees; let i = index">
+      <tr  *ngIf="searchText === '' || emp.name.toLowerCase().includes(searchText)" >
+        <th scope="row">{{emp.id}}</th>
+
+      <!-- employee name -->
+        <td>
+        <ng-container *ngIf ="editMode && editEmployeeId === emp.id" >
+          <input type="text" [(ngModel)]="emp.name">
+        </ng-container>
+        <ng-container *ngIf ="!editMode || (editMode && editEmployeeId !== emp.id)" >
+          {{emp.name}}
+        </ng-container>
+        </td>
+
+      <!-- employee department  -->
+        <td>
+          <ng-container *ngIf ="editMode && editEmployeeId === emp.id" >
+            <input type="text" [(ngModel)]="emp.department">
+          </ng-container>
+          <ng-container *ngIf ="!editMode || (editMode && editEmployeeId !== emp.id)" >
+            {{emp.department}}
+          </ng-container>
+          </td>
+
+      <!-- button -->
+        <td><button class="btn btn-danger"(click)="deleteRow(emp.id)"><i class="fa fa-trash" aria-hidden="true">
+          DELETE</i></button>
+          <button class="btn btn-primary" (click) = "EditMode(emp.id)"><i class="fa-solid fa-upload">{{editMode && editEmployeeId === emp.id ? 'Save' : 'Edit'}}</i></button>
+        </td>
+  
+    </tr>
+    </ng-container>
+    </tbody>
+  </table>
+
+  <!-- add a new employee -->
+  <hr>
+  <h2>Add NEW Employee</h2>
+  <hr>
+  <table class="table table-striped" >
+    <thead>
+      <tr>
+        
+        <th scope="col">Name</th>
+        <th scope="col">Department</th>
+      
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        
+        <td><input type="text" [(ngModel)]="name"></td>
+        <td><input type="text" [(ngModel)]="department"></td>
+        <td><button class="btn btn-success" (click)="addEmployee()" > <i class="fa-solid fa-plus">Add</i> </button></td>
+        
+       
+      </tr>
+    
+      
+    </tbody>
+  </table>
+
+
+  

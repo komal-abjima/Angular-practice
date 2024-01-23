@@ -6,5 +6,12 @@ import { Component } from '@angular/core';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'food-app';
+  title = 'angular-task1';
+
+  searchText: string = '';
+
+  setSearchText(value: string){
+    this.searchText = value;
+
+  }
 }
