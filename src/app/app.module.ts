@@ -12,6 +12,11 @@ import { ServersService } from './servers/servers.service';
 import { RouterModule, Routes } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AppRoutingModule } from './app-routing.module';
+import { AuthGuard } from './auth-guard.service';
+import { AuthService } from './auth.service';
+import { canDeactivateGuard } from './servers/edit-server/can-deactivate-guard.service';
+import { ErrorPageComponent } from './error-page/error-page.component';
+import { ServerResolver } from './servers/server/server-resolver.service';
 
 
 // const appRoutes: Routes = [
@@ -45,7 +50,8 @@ import { AppRoutingModule } from './app-routing.module';
     UserComponent,
     EditServerComponent,
     ServerComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    ErrorPageComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +59,7 @@ import { AppRoutingModule } from './app-routing.module';
     AppRoutingModule
     // RouterModule.forRoot(appRoutes)
   ],
-  providers: [ServersService],
+  providers: [ServersService, AuthGuard, AuthService, canDeactivateGuard, ServerResolver],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
