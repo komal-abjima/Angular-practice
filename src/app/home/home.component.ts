@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       if(count > 3){
         observer.error(new Error('count is greater then 3'))
       }
-      // .complete if this condition will  === 4 then the error will occur first
+      // complete if this condition will  === 4 then the error will occur first
       if(count === 2){
         observer.complete();
       }
@@ -43,8 +43,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   // }))
 
   this.firstObsSubscription = customIntervalObservable.pipe(
-    // it is showing me an error
-    filter(data => {return data > 2}), 
+   //filter
+    filter((data:number) => {return data > 0}), 
     map((data: number)=>{
     return 'Round: '+ (data + 1);
   })).subscribe(data => {
