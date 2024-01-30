@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
-import { Observable, from, fromEvent, of } from 'rxjs';
+import { Observable, filter, from, fromEvent, map, of } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -44,7 +44,17 @@ export class AppComponent implements AfterViewInit {
   promiseData = new Promise((resolve, reject)=>{
     resolve([10,20,30,40]);
   })
-  myObservable = from(this.promiseData);
+  // myObservable = from(this.promiseData);
+
+  // by using pipe and map
+  myObservable = from([2,4,6,8]).pipe(map((val)=>{
+    return val * 10 }), filter((val)=>{return val % 3 === 0}));
+  // multiplyObs = this.myObservable.pipe(map((val)=>{
+  //   return val * 10;
+  // }))
+  // filteredObs = this.multiplyObs.pipe(filter((val)=>{
+  //   return val % 3 === 0;
+  // }))
 
   GetData(){
     // observer
@@ -67,6 +77,12 @@ export class AppComponent implements AfterViewInit {
     // })
 
     // the above is showing depracted so we will use this
+    // this.myObservable.subscribe({
+    //   next: (val: any) => {this.data.push(val);
+    //   console.log(val)},
+    //   error (err){  alert(err.message);},
+    //   complete() {alert('All the data is streamed..')}
+    // })
     this.myObservable.subscribe({
       next: (val: any) => {this.data.push(val);
       console.log(val)},
@@ -76,25 +92,25 @@ export class AppComponent implements AfterViewInit {
     
   }
 
-  buttonClicked(){
-    let count = 0;
-    this.createBtnObs = fromEvent(this.createBtn.nativeElement, 'click')
-                        .subscribe((data)=>{
-                          console.log(data);
-                          this.showItem(++count);
-                        })
+  // buttonClicked(){
+  //   let count = 0;
+  //   this.createBtnObs = fromEvent(this.createBtn.nativeElement, 'click')
+  //                       .subscribe((data)=>{
+  //                         console.log(data);
+  //                         this.showItem(++count);
+  //                       })
     
-  }
+  // }
 
   ngAfterViewInit(){
-    this.buttonClicked();
+    // this.buttonClicked();
   }
 
-  showItem(val){
-    let div = document.createElement('div');
-    div.innerText = 'Item' + val;
-    div.className = 'data-list';
-    document.getElementById('divstyle').appendChild(div);
+  // showItem(val){
+  //   let div = document.createElement('div');
+  //   div.innerText = 'Item' + val;
+  //   div.className = 'data-list';
+  //   document.getElementById('divstyle').appendChild(div);
 
-  }
+  // }
 }
