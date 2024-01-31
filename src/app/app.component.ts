@@ -9,6 +9,9 @@ import { NgForm } from '@angular/forms';
 export class AppComponent {
 
   @ViewChild('registrationForm') form: NgForm;
+  genders = ['Male', 'Female', 'Others']
+  firstName: string = '';
+  lastName: string = '';
   // onSubmit(form: HTMLFormElement){
     onSubmit(){
     // console.log('form submited');
@@ -17,7 +20,14 @@ export class AppComponent {
     console.log(this.form.value.lname);
     console.log(this.form.value.phone);
     console.log(this.form.value.gender);
+    console.log(this.form.value.address.city);
 
 
+  }
+  onCreateUsername(){
+    const Suggestusername = 'SuperUser';
+    this.form.form.patchValue({
+      username: Suggestusername
+    })
   }
 }

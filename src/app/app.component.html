@@ -1,24 +1,36 @@
-<section class="container">
+<section class="container" [ngClass]="{'form-shadow': registrationForm.touched}">
   <header>Registration Form</header>
 
   <form class="form" (ngSubmit)="onSubmit()" #registrationForm="ngForm">
     <div class="column">
       <div class="input-box">
-        <input type="text" placeholder="First Name" name="fname" ngModel/>
+        <input type="text" placeholder="First Name" name="fname" #fname="ngModel" [(ngModel)]="firstName" required/>
+        <!-- <div *ngIf="firstName"><p>You entered: {{firstName}}</p></div> -->
+        <div>
+          <small *ngIf="fname.invalid && fname.touched">*First name is a required Field.</small>
+        </div>
       </div> 
+      
 
       <div class="input-box">
-        <input type="text" placeholder="Last Name" name="lname" ngModel />
+        <input type="text" placeholder="Last Name" name="lname" #lname="ngModel" [(ngModel)]="lastName" required />
+      </div>
+      <!-- <div *ngIf="lastName"><p>You entered: {{lastName}}</p></div> -->
+      <div>
+        <small *ngIf="!lname.valid && lname.touched">*Last name is a required Field.</small>
       </div>
     </div>    
 
     <div class="input-box">
-      <input type="text" placeholder="Email" name="email" ngModel />
+      <input type="text" placeholder="Email" name="email" #email="ngModel" ngModel required />
+      <div *ngIf="!email.valid && email.touched">
+        <small>*Email is a required Field.</small>
+      </div>
     </div>
 
     <div class="column">
       <div class="input-box">
-        <input type="number" placeholder="Phone Number" name="phone" ngModel/>
+        <input type="number" placeholder="Phone Number" name="phone" ngModel required/>
       </div>
       <div class="input-box">
         <input type="date" placeholder="Date of Birth" name="dob" ngModel />
@@ -27,36 +39,49 @@
 
     <div class="input-box">
       <input type="text" placeholder="username" name="username" ngModel />
-      <button class="btn-gen-username">
+      <button class="btn-gen-username" (click)="onCreateUsername()" [disabled]="fname.invalid || lname.invalid">
         Create a Username
       </button>
     </div>
 
-    <div class="gender-box">
+    <!-- <div class="gender-box">
       <h3>Gender</h3>
       <div class="gender-option">
         <div class="gender">
-          <input type="radio" id="check-male" name="gender" ngModel />
-          <label for="check-male">male</label>
+          <input type="radio" id="check-male" name="gender" value="male" ngModel />
+          <label>male</label>
         </div>
         <div class="gender">
-          <input type="radio" id="check-female" name="gender" ngModel />
-          <label for="check-female">Female</label>
+          <input type="radio" id="check-female" name="gender" value="female" ngModel />
+          <label>Female</label>
         </div>
         <div class="gender">
-          <input type="radio" id="check-other" name="gender" ngModel />
-          <label for="check-other">prefer not to say</label>
+          <input type="radio" id="check-other" name="gender" value="other" ngModel />
+          <label>prefer not to say</label>
         </div>
       </div>
+    </div> -->
+
+    <div class="gender-box">
+      <div class="gender-option">
+        <label> Gender</label>
+        <div class="gender" *ngFor="let gender of genders">
+         
+          <input type="radio" name="gender" [value]="gender" ngModel />
+          {{gender}}
+         
+        </div>
+        </div>
+       
     </div>
 
-    <div class="input-box address">
+    <div class="input-box address" ngModelGroup="address" #address="ngModelGroup">
       <label>Address</label>
-      <input type="text" placeholder="Street address" name="street1" ngModel />
+      <input type="text" placeholder="Street address" name="street1" ngModel required />
       <input type="text" placeholder="Street address line 2" name="street2" ngModel />
       <div class="column">
         <div class="select-box">
-          <select name="country" name="country" ngModel>
+          <select name="country" name="country" ngModel required>
             <option hidden>Country</option>
             <option>America</option>
             <option>Japan</option>
@@ -64,13 +89,14 @@
             <option>Nepal</option>
           </select>
         </div>
-        <input type="text" placeholder="City" name="city" ngModel />
+        <input type="text" placeholder="City" name="city" ngModel  required/>
       </div>
       <div class="column">
         <input type="text" placeholder="Region" name="region" ngModel />
-        <input type="number" placeholder="Postal code" name="pcode" ngModel />
+        <input type="number" placeholder="Postal code" name="pcode" ngModel  required/>
       </div>
+      <small *ngIf="!address.valid && address.touched">*Some of the address fields does not contain a valid value.</small>
     </div>
-    <input type="submit" value="Submit" class="submit-btn"> 
+    <input type="submit" value="Submit" class="submit-btn" [disabled]="!registrationForm.valid"> 
   </form>
 </section>
