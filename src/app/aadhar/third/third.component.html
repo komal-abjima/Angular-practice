@@ -1,0 +1,7 @@
+<div>
+  <form [formGroup]="form">
+    <label for="otp">OTP:</label><span style="color: red;">*</span><br>
+    <input type="text" id="otp" formControlName="otp" />
+    <button class="btn btn-primary" (click)="verify($event)">Verify</button>
+  </form>
+</div>

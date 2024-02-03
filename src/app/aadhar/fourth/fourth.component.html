@@ -1,0 +1,12 @@
+<div>
+  <form [formGroup]="form">
+    <label for="select">Select any Aabha address:</label> <span style="color: red;">*</span>
+    <br>
+    <select id="select" formControlName="selectedOption">
+      <option value="mobile">Mobile</option>
+      <option value="otp">OTP</option>
+    </select>
+    
+    <button class="btn btn-primary" (click)="verify()">Verify</button>
+  </form>
+</div>

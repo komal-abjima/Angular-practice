@@ -1,0 +1,11 @@
+<form [formGroup]="form" (ngSubmit)="onVerify()">
+  <div>
+    <label for="otp">OTP:</label> <span style="color: red;">*</span><br>
+    <input id="otp" type="text" formControlName="otp" />
+  </div>
+  <div>
+    <label for="mobileNumber">Mobile Number:</label><span style="color: red;">*</span><br>
+    <input id="mobileNumber" type="text" formControlName="mobileNumber" />
+  </div>
+  <button class="btn btn-primary" type="submit">Verify OTP</button>
+</form>

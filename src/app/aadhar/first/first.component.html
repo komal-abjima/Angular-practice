@@ -1,0 +1,10 @@
+<form [formGroup]="aadharForm" (ngSubmit)="sendOTP()">
+  <div>
+    <label for="aadharNumber">Aadhar Number:</label>
+    <span style="color: red;">*</span>
+    <br>
+    <input id="aadharNumber" type="text" formControlName="aadharNumber" />
+  </div>
+  <button type="submit" class="btn btn-primary">Send OTP</button>
+</form>
+
