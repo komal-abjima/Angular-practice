@@ -40,7 +40,7 @@ this.form = this.fb.group({
       const id = this.route.snapshot.params.id;
         this.router.navigate(['/fourth', id]);
       } else {
-        alert('Invalid OTP. Please enter OTP as 888.');
+        alert('Invalid OTP. Please enter valid OTP.');
       }
     }
   }

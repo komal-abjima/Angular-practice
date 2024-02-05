@@ -41,9 +41,6 @@ this.form = this.fb.group({
   getDataFromService(): any {
     const id = this.route.snapshot.paramMap.get('id');
     const formData = this.dataService.getFormDataById(id); 
-    console.log('Aadhar Number:', formData?.aadharNumber); 
-    console.log('Mobile Number:', formData?.mobileNumber); 
-    console.log('Selected Option:', this.selectedOption); 
     return formData;
  
   }
