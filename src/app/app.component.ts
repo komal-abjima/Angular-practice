@@ -11,6 +11,7 @@ import { CustomValidators} from './Validators/noSpaceAllowed.validator';
 export class AppComponent implements OnInit {
     reactiveForm: FormGroup;
     formStatus: string = '';
+    formData: any = {};
 
     genders = [
       {id: 'check-male', value: 'male', display: 'Male'},
@@ -72,8 +73,31 @@ export class AppComponent implements OnInit {
     }
 
     onSubmit(){
-      console.log(this.reactiveForm);
+      console.log(this.reactiveForm.value);
+      this.formData = this.reactiveForm.value;
+      this.reactiveForm.reset({
+        firstname: null,
+        lastname: null,
+        email: null,
+        username: null,
+        dob: null,
+        gender: 'male',
+        address:{
+          street: null,
+          country: 'India',
+          city: null,
+          region: null,
+          postal: null
+        },
+        skills: [
+          null
+        ],
+        experience: [
+          
+        ]
+      });
     }
+    
     AddSkills(){
       (<FormArray>this.reactiveForm.get('skills')).push(new FormControl(null, Validators.required))
     }
