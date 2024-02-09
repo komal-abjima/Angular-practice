@@ -1,6 +1,6 @@
 <div class="overlay">
 	<div class="popup">
-		<h2>Create a new Task 
+		<h2>{{isEditMode ? 'Update Task' : 'Create a New Task'}}
       <a class="close" style="text-decoration: none; color: black;" href="#" (click)="OnCloseForm()">&times;</a>
     </h2>
     
@@ -50,7 +50,7 @@
                       </div>
                     </div>
                   </div>
-                  <button type="submit">Create Task</button>
+                  <button type="submit">{{ isEditMode ? 'Update' : 'Create'}}</button>
                 </form>
               </section>
 		</div>
