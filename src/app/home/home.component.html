@@ -1,0 +1,17 @@
+<div class="container">
+    <h3 style="text-align: center;">Exclusive Products</h3>
+<div class="card-container">
+<div *ngFor="let product of allProducts" >
+<p-card [style]="{'width': '20rem', 'margin-bottom': '2em'}">
+    <ng-template pTemplate="header">
+        <img alt="Card" class="image" [src]="product.image">
+        <p> <b>{{product.title | slice:0:20}}</b></p>
+        <p><b>Price:</b>{{product.price}}</p>
+        <p>{{product.description | slice:0:80}}....<a style="cursor: pointer; color: blue;">Read more</a></p>
+    </ng-template>
+     
+</p-card>
+</div>
+
+</div>
+</div>
