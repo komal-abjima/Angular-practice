@@ -1,0 +1,12 @@
+/* app.component.css */
+
+:host >>> .user-form {
+    width: 30%;
+    margin-left: 25%;
+    width: 50%;
+    margin-top: 5%;
+  }
+  
+  :host >>> .p-inputtext {
+    width: 100%;
+  }

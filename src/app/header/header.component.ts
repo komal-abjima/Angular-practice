@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
  
 @Component({
@@ -8,12 +9,17 @@ import { MenuItem } from 'primeng/api';
 })
 export class HeaderComponent implements OnInit {
     items: MenuItem[] | undefined;
+    userName: string='';
+    menuType: string = 'default';
+
+    constructor(private router: Router){}
  
     ngOnInit() {
         this.items = [
             {
               label: 'Home',
               icon: 'pi pi-fw pi-home',
+              routerLink: '',
               items: [
                   {
                       label: 'Electronics',
@@ -50,16 +56,37 @@ export class HeaderComponent implements OnInit {
                 items: [
                   {
                       label: 'Login',
-                      icon: 'pi pi-fw pi-align-left'
+                      icon: 'pi pi-fw pi-align-left',
+                      
                   },
                   {
                       label: 'Register',
-                      icon: 'pi pi-fw pi-align-right'
-                  },]
+                      icon: 'pi pi-fw pi-align-right',
+                      routerLink: '/user-auth'
+                  },
+                  
+                ]
             },
             {
              
             }
         ];
+
+    this.router.events.subscribe((val: any)=>{
+        if(val.url){
+            if(localStorage.getItem('user')){
+                let userStore = localStorage.getItem('user');
+                let userData = userStore && JSON.parse(userStore);
+                this.userName= userData.name;
+                this.menuType='user';
+              }
+            }
+    })
     }
+    logout(){
+        localStorage.removeItem('user');
+        this.router.navigate(['/user-auth'])
+    }
+
+  
 }

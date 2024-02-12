@@ -1,0 +1,87 @@
+<h3 style="text-align: center; margin-top: 3%;">Registration Form</h3>
+<p-card styleClass="user-form" class="flex justify-content-center">
+    <form [formGroup]="loginForm" (ngSubmit)="signup(loginForm.value)" novalidate>
+      <div class="field">
+        <label for="email" class="block">User Email</label>
+        <input type="email" pInputText placeholder="Enter your Email" formControlName="email" />
+        <small class="p-error block" *ngIf="
+            loginForm.get('email')?.invalid && loginForm.get('email')?.dirty">
+          Email is required</small>
+      </div>
+
+      <div class="field">
+        <label for="username" class="block">Username</label>
+        <input type="text" pInputText placeholder="Enter your Username" formControlName="username" />
+      </div>
+
+      <div class="field">
+        <label for="password" class="block">Password</label>
+        <input type="password" pInputText placeholder="Enter your Password" formControlName="password" />
+      </div>
+ <!--
+      <div class="field">
+        <label for="phone" class="block">Phone Number</label>
+        <input type="number" pInputText placeholder="Enter your Phone Number" formControlName="phone" />
+      </div>
+
+      <div  formGroupName="name">
+        <div class="field">
+        <label for="firstname" class="block">First Name</label>
+        <input type="text" pInputText placeholder="Enter your firstname" formControlName="firstname" />
+      </div>
+      <div class="field">
+        <label for="lastname" class="block">Last Name</label>
+        <input type="text" pInputText placeholder="Enter your lastname" formControlName="lastname" />
+      </div>
+      </div>
+
+      <div formGroupName="address">
+        <h2>Address</h2>
+        <div class="field">
+          <label for="city" class="block">City</label>
+          <input type="text" pInputText placeholder="Enter City" formControlName="city" />
+        </div>
+        <div class="field">
+          <label for="street" class="block">Street</label>
+          <input type="text" pInputText placeholder="Street" formControlName="street" />
+          <small class="p-error block" *ngIf="
+              loginForm.get('address')?.get('street')?.invalid &&
+              loginForm.get('address')?.get('street')?.dirty
+            ">
+            Street is required</small>
+        </div>
+        <div class="field">
+            <label for="number" class="block">Number</label>
+            <input type="number" pInputText placeholder="number" formControlName="number" />
+            <small class="p-error block" *ngIf="
+                loginForm.get('address')?.get('number')?.invalid &&
+                loginForm.get('address')?.get('number')?.dirty
+              ">
+              Number is required</small>
+          </div>
+          <div class="field">
+            <label for="zipcode" class="block">Zipcode</label>
+            <input type="text" pInputText placeholder="zipcode" formControlName="zipcode" />
+            <small class="p-error block" *ngIf="
+                loginForm.get('address')?.get('zipcode')?.invalid &&
+                loginForm.get('address')?.get('zipcode')?.dirty
+              ">
+              Zipcode is required</small>
+          </div>
+
+          <div formGroupName="geolocation">
+            <div class="field">
+            <label for="lat" class="block">lat</label>
+            <input type="text" pInputText placeholder="lat" formControlName="lat" />
+            </div>
+            <div class="field">
+                <label for="long" class="block">long</label>
+                <input type="text" pInputText placeholder="long" formControlName="long" />
+                </div>
+          </div>
+      </div> -->
+  
+  
+      <button pButton type="submit" label="Log In" [disabled]="loginForm.invalid"></button>
+    </form>
+  </p-card>

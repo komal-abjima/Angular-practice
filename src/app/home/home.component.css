@@ -16,7 +16,27 @@
     width: 10rem;
     height: 25vh;
     margin-bottom: 2em;
+    
   }
   .image{
     height: 20rem;
   }
+
+  /* Order */
+@layer reset, primeng;
+
+/* Reset CSS */
+@layer reset {
+    button{
+        width: 80%;
+        
+    }
+}
+
+.category-buttons{
+  width: 50%;
+  display: flex;
+}
+.category-buttons button{
+  width: 20%;
+}

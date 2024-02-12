@@ -1,3 +1,15 @@
+<div class="category-buttons">
+    <div >
+    <button (click)="loadAllProducts()">All Categories</button>
+    <button *ngFor="let category of categories" (click)="loadProductsByCategory(category)">
+      <!-- <img [src]="getCategoryImage(category)" alt="{{ category }}"> -->
+      {{category}}
+    </button>
+    </div>
+  </div>
+
+
+<app-product-details *ngIf="showProductDetails" (closeDetailView)="closeTaskDetails()" [currentProduct]="currentProduct"></app-product-details>
 <div class="container">
     <h3 style="text-align: center;">Exclusive Products</h3>
 <div class="card-container">
@@ -7,7 +19,8 @@
         <img alt="Card" class="image" [src]="product.image">
         <p> <b>{{product.title | slice:0:20}}</b></p>
         <p><b>Price:</b>{{product.price}}</p>
-        <p>{{product.description | slice:0:80}}....<a style="cursor: pointer; color: blue;">Read more</a></p>
+        <p>{{product.description | slice:0:80}}....<a (click)="showCurrentProductDetails(product.id)" style="cursor: pointer; color: blue;">Read more</a></p>
+        <button pButton type="button" icon="pi-shopping-cart" iconPos="left" label="Add To Cart" ></button>
     </ng-template>
      
 </p-card>
