@@ -12,7 +12,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { ProductDetailsComponent } from './home/product-details/product-details.component';
 import { UserAuthComponent } from './user-auth/user-auth.component';
 import { AppRoutingModule } from './app-routing.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FilterPipe } from './shared/filter.pipe';
+
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     HeaderComponent,
     HomeComponent,
     ProductDetailsComponent,
-    UserAuthComponent
+    UserAuthComponent,
+    FilterPipe,
+
    
   ],
   imports: [
@@ -31,7 +35,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     ButtonModule,
     CardModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule,
+ 
+   
     
 
   ],

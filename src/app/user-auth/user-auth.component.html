@@ -1,47 +1,59 @@
+<div class="user-auth">
+<div class="signup" *ngIf="!showLogin">
 <h3 style="text-align: center; margin-top: 3%;">Registration Form</h3>
 <p-card styleClass="user-form" class="flex justify-content-center">
-    <form [formGroup]="loginForm" (ngSubmit)="signup(loginForm.value)" novalidate>
+    <form [formGroup]="signupForm" (ngSubmit)="signUp(signupForm.value)" novalidate>
       <div class="field">
-        <label for="email" class="block">User Email</label>
+     
         <input type="email" pInputText placeholder="Enter your Email" formControlName="email" />
-        <small class="p-error block" *ngIf="
-            loginForm.get('email')?.invalid && loginForm.get('email')?.dirty">
-          Email is required</small>
+        <span class="p-error block" *ngIf="
+            signupForm.get('email').invalid && signupForm.get('email').touched">Email is required</span>
       </div>
+      <br>
 
       <div class="field">
-        <label for="username" class="block">Username</label>
+
         <input type="text" pInputText placeholder="Enter your Username" formControlName="username" />
+        <span class="p-error block" *ngIf="
+            signupForm.get('username').invalid && signupForm.get('username').touched">Username is required</span>
       </div>
+      <br>
 
       <div class="field">
-        <label for="password" class="block">Password</label>
+     
         <input type="password" pInputText placeholder="Enter your Password" formControlName="password" />
+        <span class="p-error block" *ngIf="signupForm.get('password').invalid && signupForm.get('password').touched">Password is required</span>
       </div>
- <!--
+      <br>
+ 
       <div class="field">
-        <label for="phone" class="block">Phone Number</label>
+
         <input type="number" pInputText placeholder="Enter your Phone Number" formControlName="phone" />
+        <span class="p-error block" *ngIf="signupForm.get('phone').invalid && signupForm.get('phone').touched">Phone Number is required</span>
+        
       </div>
+      <br>
 
       <div  formGroupName="name">
-        <div class="field">
-        <label for="firstname" class="block">First Name</label>
+        <div class="row">
+          <div class="col-md-6">
         <input type="text" pInputText placeholder="Enter your firstname" formControlName="firstname" />
+        
+        
       </div>
-      <div class="field">
-        <label for="lastname" class="block">Last Name</label>
+
+      <div class="col-md-6">
         <input type="text" pInputText placeholder="Enter your lastname" formControlName="lastname" />
       </div>
       </div>
+      </div>
+      <br>
 
       <div formGroupName="address">
         <h2>Address</h2>
         <div class="field">
           <label for="city" class="block">City</label>
           <input type="text" pInputText placeholder="Enter City" formControlName="city" />
-        </div>
-        <div class="field">
           <label for="street" class="block">Street</label>
           <input type="text" pInputText placeholder="Street" formControlName="street" />
           <small class="p-error block" *ngIf="
@@ -79,9 +91,38 @@
                 <input type="text" pInputText placeholder="long" formControlName="long" />
                 </div>
           </div>
-      </div> -->
+      </div>
   
   
-      <button pButton type="submit" label="Log In" [disabled]="loginForm.invalid"></button>
+      <button pButton type="submit" label="Register" [disabled]="signupForm.invalid"></button>
+      <p>Already have an Account? <a (click)="openLogin()">Click Here</a></p>
     </form>
   </p-card>
+  </div>
+
+  <!-- login -->
+
+
+  <div class="login" *ngIf="showLogin">
+    <h3 style="text-align: center; margin-top: 3%;">Login Form</h3>
+  <p-card styleClass="user-form" class="flex justify-content-center">
+    <form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)" novalidate>
+      <div class="field">
+        <label for="email" class="block">User Email</label>
+        <input type="email" pInputText placeholder="Enter your Email" formControlName="email" />
+        <small class="p-error block" *ngIf="
+            loginForm.get('email')?.invalid && loginForm.get('email')?.dirty">
+          Email is required</small>
+      </div>
+
+      <div class="field">
+        <label for="password" class="block">Password</label>
+        <input type="password" pInputText placeholder="Enter your Password" formControlName="password" />
+      </div>
+      <button pButton type="submit" label="Log In" [disabled]="loginForm.invalid"></button>
+      <p>Create a new Account? <a (click)="openRegister()">Click Here</a></p>
+      </form>
+  </p-card>
+
+  </div>
+  </div>

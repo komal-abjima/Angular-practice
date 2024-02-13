@@ -12,6 +12,8 @@ export class HomeComponent implements OnInit {
   showProductDetails: boolean = false;
   currentProduct: Product | null = null;
   categories: string[] =[];
+
+  filteredProducts ='';
   
 
   constructor(private dataService: DataService){}
@@ -33,7 +35,7 @@ export class HomeComponent implements OnInit {
 
   showCurrentProductDetails(id: string | undefined){
       this.showProductDetails = true
-      this.dataService.getProductDetails(id).subscribe({
+      this.dataService.getProductDetails(id, this.allProducts).subscribe({
         next:(data: Product) =>{
           this.currentProduct = data
           console.log(data)
@@ -41,6 +43,7 @@ export class HomeComponent implements OnInit {
       })
 
   }
+
 
   loadAllProducts(){
     this.fetchAllProducts();
@@ -61,10 +64,13 @@ export class HomeComponent implements OnInit {
  
   getCategoryImage(category: string): string {
     const categoryImages = {
-      'Electricity': 'electricity-image-url.jpg',
-      'Mens Wear': 'mens-wear-image-url.jpg',
+      'Mens Wear': '../../assets/elect.png',
     };
     return categoryImages[category] || 'default-image-url.jpg'; 
+  }
+
+  searchProducts(){
+    this.filteredProducts;
   }
 
   

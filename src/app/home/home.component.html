@@ -1,19 +1,26 @@
 <div class="category-buttons">
-    <div >
+  <div>
     <button (click)="loadAllProducts()">All Categories</button>
     <button *ngFor="let category of categories" (click)="loadProductsByCategory(category)">
       <!-- <img [src]="getCategoryImage(category)" alt="{{ category }}"> -->
-      {{category}}
+      {{ category }}
     </button>
-    </div>
   </div>
+</div>
+
+<div class="">
+  <input type="text" class="search" placeholder="Search Products" [(ngModel)]="filteredProducts">
+  <!-- <button pButton type="button" style="height: 30px; width: 10%;" (click)="searchProducts()">Search</button> -->
+
+  </div>
+  
 
 
 <app-product-details *ngIf="showProductDetails" (closeDetailView)="closeTaskDetails()" [currentProduct]="currentProduct"></app-product-details>
 <div class="container">
     <h3 style="text-align: center;">Exclusive Products</h3>
 <div class="card-container">
-<div *ngFor="let product of allProducts" >
+<div *ngFor="let product of allProducts | filter:filteredProducts: 'title'" >
 <p-card [style]="{'width': '20rem', 'margin-bottom': '2em'}">
     <ng-template pTemplate="header">
         <img alt="Card" class="image" [src]="product.image">
@@ -28,3 +35,6 @@
 
 </div>
 </div>
+
+
+

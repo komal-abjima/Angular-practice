@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Product } from "../model/product.model";
-import { Observable, catchError, map, throwError } from "rxjs";
+import { Observable, catchError, map, of, throwError } from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -37,7 +37,11 @@ export class DataService {
       );
   }
 
-  getProductDetails(id: string | undefined) {
+  getProductDetails(id: string | undefined, products: Product[]) {
+    const product = products.find(p => p.id === id);
+    if(product){
+      return of(product);
+    }else{
     return this.http.get('https://fakestoreapi.com/products/' + id)
       .pipe(map((response) => {
         console.log(response)
@@ -45,8 +49,10 @@ export class DataService {
         product = { ...response, id: id }
         return product;
       }))
+    }
 
   }
+
 
   getProductsByCategory(category: string){
     return this.http.get('https://fakestoreapi.com/products/category/'+category)
@@ -74,39 +80,3 @@ export class DataService {
   }
 }
 
-
-// private currentProductId = 1;
- 
-// GetAllProducts() {
-// return this.http.get('https://fakestoreapi.com/products')
-//     .pipe(
-//       map((response) => {
-//         let products: Product[] = [];
-//         for (let key in response) {
-//           if (response.hasOwnProperty(key)) {
-//             products.push({ ...response[key], id: this.currentProductId });
-//             this.currentProductId++;
-//           }
-//         }
-//         return products;
-//       }),
-//       catchError((err) => throwError(() => err))
-//     );
-// }
- 
-// getProductsByCategory(category: string) {
-// return this.http.get('https://fakestoreapi.com/products/category/' + category)
-//     .pipe(
-//       map((response) => {
-//         let products: Product[] = [];
-//         for (let key in response) {
-//           if (response.hasOwnProperty(key)) {
-//             products.push({ ...response[key], id: this.currentProductId });
-//             this.currentProductId++;
-//           }
-//         }
-//         return products;
-//       }),
-//       catchError((err) => throwError(() => err))
-//     );
-// }
