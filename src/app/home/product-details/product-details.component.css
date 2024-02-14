@@ -5,6 +5,7 @@
     left: 0;
     right: 0;
     background: rgba(0, 0, 0, 0.7);
+    overflow-y: scroll;
   }
   
   .popup {
@@ -12,7 +13,7 @@
     padding: 20px;
     background: #fff;
     border-radius: 5px;
-    width: 40%;
+    width: 50vw;
     position: relative;
   }
   
@@ -157,4 +158,7 @@
     .form :where(.gender-option, .gender) {
       row-gap: 15px;
     }
+  }
+  .form-button{
+    background-color: #ff9f00;
   }

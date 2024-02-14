@@ -1,6 +1,6 @@
 <div class="overlay">
 	<div class="popup">
-        <img [src]="currentProduct?.image" width="50%" height="50%" style="margin-left: 25%;">
+        <img [src]="currentProduct?.image" width="30%" height="50%" style="margin-left: 25%;">
         <h2>{{currentProduct?.title}}</h2>
         <hr>
 		<a class="close" href="#" (click)="onClose()">&times;</a>
@@ -12,7 +12,25 @@
                 <p>
                     {{currentProduct?.description}}
                 </p>
+                <div class="row">
+                <div class="col-md-4">
+                <button pButton *ngIf="!removeCart" class="form-button" icon="pi pi-cart-plus" (click)="addToCart()" label="Add To Cart" ></button>
+                <button pButton *ngIf="removeCart" style="background-color: red;" icon="pi pi-cart-plus" (click)="removetoCart(currentProduct.id)" label="Remove To Cart" ></button>
+                </div>
+                <div class="col-md-4">
+               <div style="display: flex; width: 20rem;">
+                    <button pButton (click)="handleQuantity('min')" style="background-color: goldenrod;" icon="pi pi-minus" ></button>
+                    <input  type="text" style="width: 30px;" value="{{productQuantity}}" />
+                    <button pButton (click)="handleQuantity('plus')" style="background-color: goldenrod;" icon="pi pi-plus"></button>
+                    </div>
+                
+                </div>
+                <div class="col-md-4">
+                    <button pButton style="background-color: #fb641b;" icon="pi pi-bolt" (click)="addToCart()" label="Buy Now" ></button>
+                </div>
+                </div>
             </section>
+           
 		</div>
 	</div>
 </div>

@@ -1,7 +1,7 @@
 export interface login {
     email: string;
     password: string;
-    id: string
+    id: number
   }
 
   export interface signUp {
@@ -23,6 +23,20 @@ export interface login {
         long: string;
       }
     }
-    id:string;
+    id:number;
+
+  }
+
+  export interface cart{
+    title: string;
+    price: string;
+    category: string;
+    description: string;
+    image: string;
+    id?: number | undefined;
+    quantity?: number | undefined;
+    productId: number;
+    userId: number;
+
 
   }

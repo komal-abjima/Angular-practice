@@ -2,7 +2,8 @@
 <div class="signup" *ngIf="!showLogin">
 <h3 style="text-align: center; margin-top: 3%;">Registration Form</h3>
 <p-card styleClass="user-form" class="flex justify-content-center">
-    <form [formGroup]="signupForm" (ngSubmit)="signUp(signupForm.value)" novalidate>
+    <form [formGroup]="signupForm" (ngSubmit)="signUp(signupForm.value)">
+     
       <div class="field">
      
         <input type="email" pInputText placeholder="Enter your Email" formControlName="email" />
@@ -106,7 +107,8 @@
   <div class="login" *ngIf="showLogin">
     <h3 style="text-align: center; margin-top: 3%;">Login Form</h3>
   <p-card styleClass="user-form" class="flex justify-content-center">
-    <form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)" novalidate>
+    <form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)">
+      <p class="error-p">{{authError}}</p>
       <div class="field">
         <label for="email" class="block">User Email</label>
         <input type="email" pInputText placeholder="Enter your Email" formControlName="email" />

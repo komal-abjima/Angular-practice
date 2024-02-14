@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit {
     this.showProductDetails = false
   }
 
-  showCurrentProductDetails(id: string | undefined){
+  showCurrentProductDetails(id: number | undefined){
       this.showProductDetails = true
       this.dataService.getProductDetails(id, this.allProducts).subscribe({
         next:(data: Product) =>{

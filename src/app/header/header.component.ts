@@ -1,69 +1,97 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
+import { DataService } from '../service/data.service';
 
 @Component({
-    selector: 'app-header',
-    templateUrl: './header.component.html',
-    styleUrl: './header.component.css'
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-    items: MenuItem[] | undefined;
-    userName: string = '';
-    menuType: string = 'default';
+  items: MenuItem[] = [];
+  userName: string = '';
+  menuType: string = 'default';
+  cartItems = 0;
 
-    constructor(private router: Router) { }
-    ngOnInit() {
-        this.items = [
-            {
-                label: 'Home',
-                icon: 'pi pi-fw pi-home',
-                routerLink: '',
-                items: [
-                    { label: 'Electronics', icon: 'pi pi-fw pi-align-left' },
-                    { label: 'Jewelry', icon: 'pi pi-fw pi-align-right' },
-                    { label: 'Mens Clothing', icon: 'pi pi-fw pi-align-center' },
-                    { label: 'Womens Clothing', icon: 'pi pi-fw pi-align-justify' }
-                ]
-            },
-            { label: 'About Us', icon: 'pi pi-fw pi-file' },
-            { label: 'Contact Us', icon: 'pi pi-fw pi-phone' },
-            {
-                label: this.getUserName(),
-                icon: 'pi pi-fw pi-user',
-                items: [
-                    { label: 'Logout', icon: 'pi pi-fw pi-sign-out', command: () => this.logout() }
-                ],
-                visible: this.menuType === 'user'
-            },
-            {
-                label: 'Login/Register',
-                icon: 'pi pi-fw pi-sign-in',
-                routerLink: '/user-auth',
-                visible: this.menuType === 'default'
-            },
-        ];
+  constructor(private router: Router, private dataService: DataService) { }
 
-        this.router.events.subscribe((val: any) => {
-            if (val.url) {
-                if (localStorage.getItem('user')) {
-                    let userStore = localStorage.getItem('user');
-                    let userData = userStore && JSON.parse(userStore);
-                    this.userName = userData.name;
-                    this.menuType = 'user';
-                }
-            }
-        });
+  ngOnInit() {
+    this.updateMenu();
+
+    this.router.events.subscribe(() => {
+      this.updateMenu();
+    });
+  }
+
+  updateMenu() {
+    if (localStorage.getItem('user')) {
+      const userStore = localStorage.getItem('user');
+      const userData = userStore && JSON.parse(userStore);
+      this.userName = userData.username;
+      this.menuType = 'user';
+    } else {
+      this.menuType = 'default';
     }
 
-    getUserName(): string {
-        return this.menuType === 'user' ? `Welcome, ${this.userName}` : '';
+    this.items = [
+      {
+        label: 'Home',
+        icon: 'pi pi-fw pi-home',
+        routerLink: ''
+      },
+      { label: 'About Us', icon: 'pi pi-fw pi-file' },
+      { label: 'Contact Us', icon: 'pi pi-fw pi-phone' },
+      {
+        label: this.getUserName(),
+        icon: 'pi pi-fw pi-user',
+        visible: this.menuType === 'user'
+      },
+      { label: 'LogOut', icon: 'pi pi-fw pi-sign-out', command: () => this.logout(), visible: this.menuType === 'user' },
+      {
+        label: 'Login/Register',
+        icon: 'pi pi-fw pi-sign-in',
+        routerLink: '/user-auth',
+        visible: this.menuType === 'default'
+      },
+      {
+        label: `Cart(${this.cartItems})`,
+        icon: 'pi pi-shopping-cart',
+
+      },
+    ];
+
+    this.router.events.subscribe((val: any) => {
+      if (val.url) {
+        if (localStorage.getItem('user')) {
+          let userStore = localStorage.getItem('user');
+          let userData = userStore && JSON.parse(userStore);
+          this.userName = userData.username;
+          this.menuType = 'user';
+        }
+      }
+    });
+    let cartData = localStorage.getItem('localCart');
+    if(cartData){
+      this.cartItems = JSON.parse(cartData).length;
 
     }
+    this.dataService.cartData.subscribe((items)=>{
+      this.cartItems = items.length
+    })
+  }
+
+  getUserName(): string {
+    return this.menuType === 'user' ? `Welcome back, ${this.userName}` : '';
+
+  }
 
 
-    logout() {
-        localStorage.removeItem('user');
-        this.router.navigate(['/user-auth'])
-    }
+  logout() {
+    localStorage.removeItem('user');
+    this.router.navigate(['/user-auth'])
+  }
+   
+
 }
+

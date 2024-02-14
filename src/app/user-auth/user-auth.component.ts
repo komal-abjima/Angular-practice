@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../service/user.service';
-import { login, signUp } from '../model/user-type';
+import { cart, login, signUp } from '../model/user-type';
 import { Router } from '@angular/router';
+import { Product } from '../model/product.model';
+import { DataService } from '../service/data.service';
 
 
 @Component({
@@ -12,6 +14,7 @@ import { Router } from '@angular/router';
 })
 export class UserAuthComponent implements OnInit {
   showLogin:boolean = true;
+  authError: string = '';
 
   signupForm: FormGroup = this.fb.group({
     email: ['', [Validators.required, Validators.email]], 
@@ -42,36 +45,11 @@ export class UserAuthComponent implements OnInit {
 
   });
 
-  constructor(private fb: FormBuilder, private userService: UserService, private router: Router) { };
+  constructor(private fb: FormBuilder, private userService: UserService, private router: Router, private ds: DataService) { };
 
   ngOnInit(): void {
     this.userService.userAuthReload();
   }
-
-  // signup(data: Partial<User>) {
-  //   console.log(data);
-  //   const user: Partial<User> = {
-  //     email: data.email || '',
-  //     password: data.password || '',
-  //     username: data.username || '',
-  //     phone: data.phone,
-  //     name: {
-  //       firstname: data.name?.firstname || '',
-  //       lastname: data.name?.lastname || '',
-  //     },
-  //     address: {
-  //       city: data.address?.city || '',
-  //       street: data.address?.street || '',
-  //       number: data.address?.number || 0,
-  //       zipcode: data.address?.zipcode || '',
-  //       geolocation: {
-  //         lat: data.address?.geolocation?.lat || '',
-  //         long: data.address?.geolocation?.long || '',
-  //       },
-  //     },
-  //   };
-  //   this.userService.UserSignUp(user);
-  // }
 
   signUp(data: signUp) {
     this.userService.userSignUp(data);
@@ -83,28 +61,14 @@ export class UserAuthComponent implements OnInit {
     this.userService.userLogin(data);
     this.userService.invaliduserAuth.subscribe((res)=>{
       console.warn('result', res)
+      if(res){
+        this.authError  = 'Please Enter valid email and password'
+      }
+      else{
+        this.localToUserApi();
+      }
     })
   }
-
-  // login(email: string, password: string): void {
-  //     this.userService.login(email, password).subscribe(
-  //       (response: any) => {
-  //   const userExists = response.some((user: any) => user.email === email && user.password === password);
-          
-  //         if (userExists) {
-  //           localStorage.setItem('user', JSON.stringify({ email: email }));
-  //           console.log('user matches')
-  //           this.router.navigate(['/']);
-          
-  //         } else {
-  //           this.router.navigate(['/user-auth']);
-  //         }
-  //       },
-  //       (error) => {
-  //         console.error(error);
-  //       }
-  //     );
-  //   }
 
   openLogin(){
     this.showLogin = true
@@ -115,4 +79,41 @@ export class UserAuthComponent implements OnInit {
 
   }
 
-}
+  localToUserApi(){
+    let data = localStorage.getItem('localCart');
+    let user = localStorage.getItem('user')
+      let userId = user && JSON.parse(user).id
+    if(data){
+      let cartDataList: Product[] = JSON.parse(data)
+      
+
+      if (Array.isArray(cartDataList)) 
+      cartDataList.forEach((product: Product, index)=>{
+        let cartData: cart  = {
+          ...product,
+          productId: product.id,
+          userId
+        };
+        delete cartData.id;
+        setTimeout(() => {
+          this.ds.addTocart(cartData).subscribe((res)=>{
+            if(res){
+              console.warn('Item stored in Db');
+              
+            }
+            
+          })
+          
+          if(cartDataList.length === index+1)
+            localStorage.removeItem('localCart')
+        }, 500);
+        
+      })
+      }
+      setTimeout(() => {
+        this.ds.getCartByUserId(userId);
+      }, 2000);
+    }
+  }
+
+

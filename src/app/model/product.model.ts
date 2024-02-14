@@ -4,7 +4,9 @@ export class Product{
         public category: string, 
         public description: string, 
         public image: string,
-        public id?: string){
+        public id?: number,
+        public quantity?: number,
+        public productId?:undefined|number){
 
     }
 }
