@@ -1,10 +1,7 @@
-/* app.component.css */
-
 :host >>> .user-form {
     width: 30%;
-    margin-left: 25%;
     width: 50%;
-    margin-top: 1%;
+    margin-top: 8%;
   }
   
   :host >>> .p-inputtext {
@@ -22,3 +19,13 @@
   .error-p{
     color: red;
   }
+ /* Order */
+@layer reset, primeng;
+
+/* Reset CSS */
+@layer reset {
+    button {
+       width: 100%;
+       
+    }
+}

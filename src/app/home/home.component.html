@@ -1,27 +1,23 @@
+<img class="" width="100%" height="400px" style="margin-top: 4%;" src="https://cdn.dribbble.com/users/4566171/screenshots/9081163/media/3b1fd3bff13a9f4508d6c8ed5e3bae2b.jpg?resize=800x600&vertical=center" alt="image"/>
 
-<div class="mt-1 ml-2 grid gap-5">
-  <div class="col-2 -ml-1"><img class="img_cat" src="https://img.freepik.com/free-photo/black-friday-elements-assortment_23-2149074075.jpg?size=626&ext=jpg&ga=GA1.1.87170709.1707782400&semt=sph" alt="image"/></div>
+<h4 style="text-align: center; font-size: 60px; background-color: black; color: white; margin-top: 1%;">SHOP YOUR FASHION NEEDS</h4>
+<div class="mt-4 grid gap-6 ml-4">
+  <div class="col-2 -ml-1"><img class="img_cat " src="https://img.freepik.com/free-photo/black-friday-elements-assortment_23-2149074075.jpg?size=626&ext=jpg&ga=GA1.1.87170709.1707782400&semt=sph" alt="image"/></div>
   <div class="col-2 -ml-1"><img class="img_cat " src="https://logiconindia.com/assets/images/product-image/3.jpg" alt="image"/></div>  
-  <div class="col-2 -ml-1"><img class="img_cat" src="https://images.meesho.com/images/products/72703187/xvnnm_512.webp" alt="image"/></div>
-  <div class="col-2 -ml-1"><img class="img_cat" src="https://dynl.mktgcdn.com/p/LJs4_4rt15SQyUZvQkctRzIBXAq3Az6pNEEUPrYwAUo/1425x1900.jpg" alt="image"/></div>
-  <div class="col-2 -ml-1"><img class="img_cat" src="https://assets.myntassets.com/dpr_1.5,q_60,w_400,c_limit,fl_progressive/assets/images/17048614/2022/2/4/b0eb9426-adf2-4802-a6b3-5dbacbc5f2511643971561167KhushalKWomenBlackEthnicMotifsAngrakhaBeadsandStonesKurtawit7.jpg" alt="image"/></div>
+  <div class="col-2 -ml-1"><img class="img_cat " src="https://rukminim2.flixcart.com/image/612/612/kqco5u80/jewellery-set/g/c/h/780-r-a-enterprises-original-imag4dyzceaqhkhp.jpeg?q=70" alt="image"/></div>
+  <div class="col-2 -ml-1"><img class="img_cat " src="https://rukminim2.flixcart.com/image/612/612/xif0q/shoe/s/m/x/9-casual-130-skitter-navy-blue-original-imagvgk2xzkkpstf.jpeg?q=70" alt="image"/></div>
+  <div class="col-2 -ml-1"><img class="img_cat " src="https://rukminim2.flixcart.com/image/612/612/xif0q/ethnic-set/f/r/k/l-kanganchicken-anushansa-original-imagkqwgmevgzymb.jpeg?q=70" alt="image"/></div>
  
-</div><div class="category-buttons">
+</div>
+
+<div class="category-buttons">
   <div>
-    <button (click)="loadAllProducts()">All Categories</button>
+    <button  (click)="loadAllProducts()">All Categories</button>
     <button *ngFor="let category of categories" (click)="loadProductsByCategory(category)">
-      <!-- <img [src]="getCategoryImage(category)" alt="{{ category }}"> -->
-      {{ category }}
+      {{ category.toUpperCase() }}
     </button>
   </div>
 </div>
-
-<div class="">
-  <input type="text" class="search" placeholder="Search Products" [(ngModel)]="filteredProducts">
-  <!-- <button pButton type="button" style="height: 30px; width: 10%;" (click)="searchProducts()">Search</button> -->
-
-  </div>
-  
 
 
 <app-product-details *ngIf="showProductDetails" (closeDetailView)="closeTaskDetails()" [currentProduct]="currentProduct"></app-product-details>
@@ -47,5 +43,4 @@
 </div>
 </div>
 
-
-
+<app-footer></app-footer>

@@ -1,8 +1,12 @@
 <div class="card">
     <p-menubar [model]="items">
         <ng-template pTemplate="start">
-            <img src="https://e7.pngegg.com/pngimages/887/617/png-clipart-myntra-logo-e-commerce-flipkart-shop-and-win-text-discounts-and-allowances-thumbnail.png" height="40" class="mr-2" />
+            <img style="margin-left: 10px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/H%26M-Logo.svg/1280px-H%26M-Logo.svg.png" height="40" width="60%" />
         </ng-template>
+        <div class="form-group">
+            <input type="text" class="form-control" [(ngModel)]="searchTerm" (keyup)="search($event)" placeholder="search products">
+        </div>
+      
         
     </p-menubar>
     

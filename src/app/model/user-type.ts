@@ -27,16 +27,14 @@ export interface login {
 
   }
 
-  export interface cart{
-    title: string;
-    price: string;
-    category: string;
-    description: string;
-    image: string;
-    id?: number | undefined;
-    quantity?: number | undefined;
-    productId: number;
-    userId: number;
-
-
-  }
+  export interface cart {
+  title: string;
+  price: string;
+  category: string;
+  description: string;
+  image: string;
+  id?: number | undefined;
+  quantity?: number | undefined;
+  productId: number;
+  userId: number;
+}

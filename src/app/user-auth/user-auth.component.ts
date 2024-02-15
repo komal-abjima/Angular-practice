@@ -57,7 +57,7 @@ export class UserAuthComponent implements OnInit {
 
 
   login(data: login){
-    // console.warn(data);
+    console.warn(data);
     this.userService.userLogin(data);
     this.userService.invaliduserAuth.subscribe((res)=>{
       console.warn('result', res)
@@ -80,11 +80,13 @@ export class UserAuthComponent implements OnInit {
   }
 
   localToUserApi(){
+    
     let data = localStorage.getItem('localCart');
     let user = localStorage.getItem('user')
       let userId = user && JSON.parse(user).id
     if(data){
       let cartDataList: Product[] = JSON.parse(data)
+    
       
 
       if (Array.isArray(cartDataList)) 
@@ -94,7 +96,7 @@ export class UserAuthComponent implements OnInit {
           productId: product.id,
           userId
         };
-        delete cartData.id;
+        // delete cartData.id;
         setTimeout(() => {
           this.ds.addTocart(cartData).subscribe((res)=>{
             if(res){

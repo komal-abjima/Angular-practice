@@ -29,22 +29,6 @@ export class UserService {
     }
   }
 
-  // userLogin(data:login){
-  //     // this.http.get<signUp[]>(`https://fakestoreapi.com/users?email=${data.email}&password=${data.password}`,
-
-  //     this.http.get<signUp[]>(`https://fakestoreapi.com/users?id=${data.id}}`,
-  //     {observe:'response'}
-  //     ).subscribe((result)=>{
-  //       if(result && result.body?.length){
-  //         this.invaliduserAuth.emit(false);
-  //         localStorage.setItem('user',JSON.stringify(result.body[0]));
-  //         this.router.navigate(['/']);
-
-  //       }else{
-  //        this.invaliduserAuth.emit(true)
-  //       }
-  //     })
-  //   }
 
   userLogin(data: login) {
     this.http.get<any>('https://fakestoreapi.com/users').subscribe(response => {
@@ -60,6 +44,7 @@ export class UserService {
         } else {
           this.invaliduserAuth.emit(true);
           // alert('User is invalid, Please enter correct details.')
+          
         }
       }
     });
@@ -68,3 +53,4 @@ export class UserService {
 
 
 }
+

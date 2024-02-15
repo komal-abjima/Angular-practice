@@ -26,13 +26,25 @@
   width: 20%;
 }
 .search{
-  width: 50%;
+  width: 200vw;
   margin-left: 20%;
   margin-top: 2%;
 }
-
+button{
+  background-color: black;
+  height: 5vh;
+  color: white;
+  border: 2px solid white;
+}
 
 .img_cat{
-    height: 6rem;
-    width: 18.5rem;
+  height: 10rem;
+  width: 18rem;
+}
+@layer reset, primeng;
+@layer reset {
+  button,
+  input {
+      border: 2px solid black;
+  }
 }

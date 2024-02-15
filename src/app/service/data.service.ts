@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { EventEmitter, Injectable } from "@angular/core";
 import { Product } from "../model/product.model";
-import { Observable, catchError, map, of, throwError } from "rxjs";
+import { BehaviorSubject, Observable, catchError, map, of, throwError } from "rxjs";
 import { Card } from "primeng/card";
 import { cart } from "../model/user-type";
 
@@ -9,8 +9,9 @@ import { cart } from "../model/user-type";
   providedIn: 'root'
 })
 export class DataService {
-  private currentProductId = 1;
+private currentProductId = 1;
   cartData = new EventEmitter<Product[] | []>();
+  public search = new BehaviorSubject<string>("");
   
   constructor(private http: HttpClient) { }
 
@@ -116,13 +117,16 @@ export class DataService {
     return this.http.post('https://fakestoreapi.com/carts', cartData)
   }
 
-  getCartByUserId(userId: number){
-    return this.http.get<Product[]>(`https://fakestoreapi.com/carts/${userId}`, 
-    {observe: 'response'}).subscribe((res)=>{
+  getCartByUserId(id: number){
+    this.http.get<any>('https://fakestoreapi.com/carts').subscribe((res)=>{
       if(res && res.body){
         this.cartData.emit(res.body)
       }
     })
   }
+
+
 }
+
+
 

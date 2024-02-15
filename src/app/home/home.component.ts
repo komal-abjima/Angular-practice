@@ -8,6 +8,7 @@ import { DataService } from '../service/data.service';
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit {
+  
   allProducts: Product[] = [];
   showProductDetails: boolean = false;
   currentProduct: Product | null = null;
@@ -21,6 +22,10 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.fetchAllProducts();
     this.loadAllCategories();
+
+    this.dataService.search.subscribe((val:any)=>{
+      this.filteredProducts = val;
+    })
   }
   private fetchAllProducts(){
     this.dataService.GetAllProducts().subscribe((res)=>{
@@ -62,12 +67,6 @@ export class HomeComponent implements OnInit {
     });
   }
  
-  getCategoryImage(category: string): string {
-    const categoryImages = {
-      'Mens Wear': '../../assets/elect.png',
-    };
-    return categoryImages[category] || 'default-image-url.jpg'; 
-  }
 
   searchProducts(){
     this.filteredProducts;

@@ -14,6 +14,10 @@ import { UserAuthComponent } from './user-auth/user-auth.component';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FilterPipe } from './shared/filter.pipe';
+import { FooterComponent } from './footer/footer.component';
+import { CarouselModule } from 'primeng/carousel';
+import { ContactusComponent } from './contactus/contactus.component';
+import { AboutComponent } from './about/about.component';
 
 
 @NgModule({
@@ -24,6 +28,9 @@ import { FilterPipe } from './shared/filter.pipe';
     ProductDetailsComponent,
     UserAuthComponent,
     FilterPipe,
+    FooterComponent,
+    ContactusComponent,
+    AboutComponent,
 
    
   ],
@@ -37,6 +44,7 @@ import { FilterPipe } from './shared/filter.pipe';
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
+    CarouselModule
  
    
     

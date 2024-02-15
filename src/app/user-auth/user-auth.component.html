@@ -1,7 +1,7 @@
 <div class="user-auth">
-<div class="signup" *ngIf="!showLogin">
-<h3 style="text-align: center; margin-top: 3%;">Registration Form</h3>
+<div class="forms" *ngIf="!showLogin">
 <p-card styleClass="user-form" class="flex justify-content-center">
+  <h3 style="text-align: center;">Registration Form</h3>
     <form [formGroup]="signupForm" (ngSubmit)="signUp(signupForm.value)">
      
       <div class="field">
@@ -104,9 +104,10 @@
   <!-- login -->
 
 
-  <div class="login" *ngIf="showLogin">
-    <h3 style="text-align: center; margin-top: 3%;">Login Form</h3>
+  <div class="forms" *ngIf="showLogin">
+ 
   <p-card styleClass="user-form" class="flex justify-content-center">
+    <h3 style="text-align: center;">Login Form</h3>
     <form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)">
       <p class="error-p">{{authError}}</p>
       <div class="field">
@@ -128,3 +129,4 @@
 
   </div>
   </div>
+

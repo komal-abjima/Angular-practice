@@ -64,9 +64,9 @@ export class ProductDetailsComponent implements OnInit {
         let cartData: cart = {
           ...this.currentProduct,
           userId,
-          productId: this.currentProduct.id
+          productId: this.currentProduct.id,
         }
-        delete cartData.id
+        // delete cartData.id
         console.warn(cartData);
         this.dataService.addTocart(cartData).subscribe((res)=>{
           console.warn('result', res)

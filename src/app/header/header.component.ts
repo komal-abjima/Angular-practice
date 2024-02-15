@@ -13,6 +13,7 @@ export class HeaderComponent implements OnInit {
   userName: string = '';
   menuType: string = 'default';
   cartItems = 0;
+  public searchTerm !: string;
 
   constructor(private router: Router, private dataService: DataService) { }
 
@@ -38,10 +39,10 @@ export class HeaderComponent implements OnInit {
       {
         label: 'Home',
         icon: 'pi pi-fw pi-home',
-        routerLink: ''
+        routerLink: 'home'
       },
-      { label: 'About Us', icon: 'pi pi-fw pi-file' },
-      { label: 'Contact Us', icon: 'pi pi-fw pi-phone' },
+      { label: 'About Us', icon: 'pi pi-fw pi-file', routerLink: 'aboutus' },
+      { label: 'Contact Us', icon: 'pi pi-fw pi-phone', routerLink:'contactus' },
       {
         label: this.getUserName(),
         icon: 'pi pi-fw pi-user',
@@ -92,6 +93,11 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/user-auth'])
   }
    
+  search(event:any){
+    this.searchTerm = (event.target as HTMLInputElement).value;
+    console.log(this.searchTerm);
+    this.dataService.search.next(this.searchTerm);
+  }
 
 }
 

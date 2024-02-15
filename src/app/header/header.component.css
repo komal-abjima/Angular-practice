@@ -1,11 +1,45 @@
-p-menubar{
+:host ::ng-deep .p-menubar {
     text-decoration: none;
-    
+    background-color: #282828;
+    position: fixed;
+    width: 100%;
+
 }
-label{
-    text-decoration: none;
-}
-.p-menuitem-text{
+
+:host ::ng-deep .p-menuitem-text {
+    color: white;
     text-decoration: none;
 }
 
+:host ::ng-deep .p-menu-list {
+    text-decoration: none;
+
+}
+
+:host ::ng-deep .p-menu-list:hover {
+    background-color: green;
+
+
+}
+
+:host ::ng-deep .p-menuitem-text:hover {
+    color: black;
+
+
+
+}
+
+:host::ng-deep .p-menuitem-icon {
+    color: white;
+}
+
+:host ::ng-deep .p-menuitem-icon:hover {
+    color: black;
+
+
+}
+
+.form-control {
+    border-radius: 3px;
+    width: 100%;
+}
