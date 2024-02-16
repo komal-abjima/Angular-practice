@@ -111,11 +111,11 @@
     <form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)">
       <p class="error-p">{{authError}}</p>
       <div class="field">
-        <label for="email" class="block">User Email</label>
-        <input type="email" pInputText placeholder="Enter your Email" formControlName="email" />
+        <label for="username" class="block">Username</label>
+        <input type="text" pInputText placeholder="Enter your Username" formControlName="username" />
         <small class="p-error block" *ngIf="
-            loginForm.get('email')?.invalid && loginForm.get('email')?.dirty">
-          Email is required</small>
+            loginForm.get('username')?.invalid && loginForm.get('username')?.dirty">
+          Username is required</small>
       </div>
 
       <div class="field">

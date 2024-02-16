@@ -31,23 +31,36 @@ export class UserService {
 
 
   userLogin(data: login) {
-    this.http.get<any>('https://fakestoreapi.com/users').subscribe(response => {
-      const users: signUp[] = response;
+    // this.http.get<any>('https://fakestoreapi.com/users').subscribe(response => {
+    //   const users: signUp[] = response;
 
-      if (Array.isArray(users)) {
-        const matchingUser = users.find(user => user.email === data.email && user.password === data.password);
+    //   if (Array.isArray(users)) {
+    //     const matchingUser = users.find(user => user.email === data.email && user.password === data.password);
 
-        if (matchingUser) {
-          this.invaliduserAuth.emit(false);
-          localStorage.setItem('user', JSON.stringify(matchingUser));
-          this.router.navigate(['/']);
-        } else {
-          this.invaliduserAuth.emit(true);
-          // alert('User is invalid, Please enter correct details.')
+    //     if (matchingUser) {
+    //       this.invaliduserAuth.emit(false);
+    //       localStorage.setItem('user', JSON.stringify(matchingUser));
+    //       this.router.navigate(['/']);
+    //     } else {
+    //       this.invaliduserAuth.emit(true);
+    //       // alert('User is invalid, Please enter correct details.')
           
-        }
+    //     }
+    //   }
+    // });
+
+    // by using token concept 
+    this.http.post('https://fakestoreapi.com/auth/login',data).subscribe((res:any)=>{
+      if(res){
+        alert('User login')
+        localStorage.setItem('token', res.token)
+        this.router.navigate(['/'])
+
       }
-    });
+      else{
+        alert('error')
+      }
+    })
   }
 
 

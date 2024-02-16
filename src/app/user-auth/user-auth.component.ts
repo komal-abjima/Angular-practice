@@ -39,7 +39,7 @@ export class UserAuthComponent implements OnInit {
   });
 
   loginForm: FormGroup = this.fb.group({
-    email: ['', [Validators.required, Validators.email]], 
+    username: ['', Validators.required], 
     password:['', Validators.required]
 
 
@@ -57,17 +57,18 @@ export class UserAuthComponent implements OnInit {
 
 
   login(data: login){
-    console.warn(data);
+    // console.warn(data);
+    // this.userService.userLogin(data);
+    // this.userService.invaliduserAuth.subscribe((res)=>{
+    //   console.warn('result', res)
+    //   if(res){
+    //     this.authError  = 'Please Enter valid email and password'
+    //   }
+    //   else{
+    //     this.localToUserApi();
+    //   }
+    // })
     this.userService.userLogin(data);
-    this.userService.invaliduserAuth.subscribe((res)=>{
-      console.warn('result', res)
-      if(res){
-        this.authError  = 'Please Enter valid email and password'
-      }
-      else{
-        this.localToUserApi();
-      }
-    })
   }
 
   openLogin(){

@@ -162,3 +162,160 @@
   .form-button{
     background-color: #ff9f00;
   }
+
+
+
+
+  /* // user.service.ts
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { login, signUp } from '../model/user-type';
+ 
+@Injectable({
+  providedIn: 'root'
+})
+export class UserService {
+private readonly apiUrl = 'https://fakestoreapi.com/users';
+private readonly loginApiUrl = 'https://fakestoreapi.com/auth/login';
+ 
+  // Using BehaviorSubject to track the authentication state
+  private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
+ 
+  // Observable for tracking authentication state
+  isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
+ 
+  constructor(private http: HttpClient, private router: Router) {}
+ 
+  // Function to sign up a new user
+  userSignUp(user: signUp): Observable<any> {
+return this.http.post(this.apiUrl, user, { observe: 'response' }).pipe(
+      tap(response => {
+        if (response.body) {
+          localStorage.setItem('user', JSON.stringify(response.body));
+          this.isAuthenticatedSubject.next(true);
+          this.router.navigate(['/']);
+        }
+      })
+    );
+  }
+ 
+  // Function to log in a user and get a token
+  userLogin(data: login): Observable<any> {
+return this.http.post<any>(this.loginApiUrl, data).pipe(
+      tap(response => {
+        if (response.token) {
+          localStorage.setItem('token', response.token);
+          this.isAuthenticatedSubject.next(true);
+          this.router.navigate(['/']);
+        } else {
+          this.isAuthenticatedSubject.next(false);
+        }
+      })
+    );
+  }
+ 
+  // Function to check the authentication state
+  checkAuthentication() {
+    const token = localStorage.getItem('token');
+    this.isAuthenticatedSubject.next(!!token);
+  }
+ 
+  // Function to log out a user
+  logout() {
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    this.isAuthenticatedSubject.next(false);
+    this.router.navigate(['/user-auth']);
+  }
+}
+// user-auth.component.ts import { Componen... by Komal Sharma
+10:28 AM
+Komal Sharma
+// user-auth.component.ts
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserService } from '../service/user.service';
+import { login, signUp } from '../model/user-type';
+ 
+@Component({
+  selector: 'app-user-auth',
+  templateUrl: './user-auth.component.html',
+  styleUrls: ['./user-auth.component.css']
+})
+export class UserAuthComponent implements OnInit {
+  showLogin = true;
+  authError = '';
+loginForm: FormGroup = this.fb.group({
+email: ['', [Validators.required, Validators.email]],
+    password: ['', Validators.required]
+  });
+ 
+  signupForm: FormGroup = /*... your existing code ...*/;
+ 
+  /* constructor(private fb: FormBuilder, private userService: UserService) {}
+ 
+  ngOnInit(): void {
+    this.userService.checkAuthentication();
+  }
+ 
+  signUp(data: signUp) {
+    this.userService.userSignUp(data).subscribe(
+      () => {},
+      error => {
+        console.error('Signup failed:', error);
+        // Handle signup failure
+      }
+    );
+  }
+ 
+  login(data: login) {
+    this.userService.userLogin(data).subscribe(
+      () => {},
+      error => {
+        console.error('Login failed:', error);
+        this.authError = 'Invalid email or password';
+      }
+    );
+  }
+ 
+  logout() {
+    this.userService.logout();
+  }
+}
+// auth.interceptor.ts import { Injectable ... by Komal Sharma
+10:28 AM
+Komal Sharma
+// auth.interceptor.ts
+import { Injectable } from '@angular/core';
+import {
+  HttpEvent,
+  HttpInterceptor,
+  HttpHandler,
+  HttpRequest,
+} from '@angular/common/http';
+import { Observable } from 'rxjs';
+ 
+@Injectable()
+export class AuthInterceptor implements HttpInterceptor {
+  intercept(
+    req: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<HttpEvent<any>> {
+    // Add the Authorization header if a token is present
+    const token = localStorage.getItem('token');
+    if (token) {
+      const cloned = req.clone({
+        setHeaders: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return next.handle(cloned);
+    }
+ 
+    // If no token, proceed without modification
+    return next.handle(req);
+  }
+} */
