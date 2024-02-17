@@ -28,13 +28,22 @@ export interface login {
   }
 
   export interface cart {
-  title: string;
-  price: string;
-  category: string;
-  description: string;
-  image: string;
-  id?: number | undefined;
-  quantity?: number | undefined;
-  productId: number;
-  userId: number;
-}
+    id: number;
+    userId: number;
+    date: string;
+    products: cartProduct[];
+    __v: number;
+  }
+   
+  export interface cartProduct {
+    productId: number;
+    quantity: number;
+  }
+
+  export interface priceSummary{
+    price:number,
+    discount:number,
+    tax:number,
+    delivery:number,
+    total:number
+  }

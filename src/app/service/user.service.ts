@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { Router } from "@angular/router";
 import { login, signUp } from "../model/user-type";
 import { Observable } from "rxjs";
+import { JsonPipe } from "@angular/common";
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,8 @@ export class UserService {
       .subscribe((result) => {
         if (result) {
           localStorage.setItem('user', JSON.stringify(result.body));
-          this.router.navigate(['/']);
+          alert('You are successfully registered, please login first.')
+          this.router.navigate(['/user-auth']);
         }
 
       })
@@ -52,12 +54,15 @@ export class UserService {
     // by using token concept 
     this.http.post('https://fakestoreapi.com/auth/login',data).subscribe((res:any)=>{
       if(res){
-        alert('User login')
+        this.invaliduserAuth.emit(false)
+        alert(`Welcome ${data.username}`)
+        localStorage.setItem('user', JSON.stringify(data))
         localStorage.setItem('token', res.token)
         this.router.navigate(['/'])
 
       }
       else{
+        this.invaliduserAuth.emit(true)
         alert('error')
       }
     })

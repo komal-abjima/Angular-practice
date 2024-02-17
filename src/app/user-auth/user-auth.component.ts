@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../service/user.service';
-import { cart, login, signUp } from '../model/user-type';
+import { cart, cartProduct, login, signUp } from '../model/user-type';
 import { Router } from '@angular/router';
 import { Product } from '../model/product.model';
 import { DataService } from '../service/data.service';
@@ -49,10 +49,12 @@ export class UserAuthComponent implements OnInit {
 
   ngOnInit(): void {
     this.userService.userAuthReload();
+   
   }
 
   signUp(data: signUp) {
     this.userService.userSignUp(data);
+    
   }
 
 
@@ -68,7 +70,17 @@ export class UserAuthComponent implements OnInit {
     //     this.localToUserApi();
     //   }
     // })
-    this.userService.userLogin(data);
+    // this.userService.userLogin(data);
+    this.userService.userLogin(data)
+    this.userService.invaliduserAuth.subscribe((result)=>{
+      console.warn(result);
+      if(result){
+         this.authError="User not found"
+      }else{
+        this.localCartToRemoteCart();
+      }
+      
+    })
   }
 
   openLogin(){
@@ -80,43 +92,34 @@ export class UserAuthComponent implements OnInit {
 
   }
 
-  localToUserApi(){
-    
+  localCartToRemoteCart() {
     let data = localStorage.getItem('localCart');
-    let user = localStorage.getItem('user')
-      let userId = user && JSON.parse(user).id
-    if(data){
-      let cartDataList: Product[] = JSON.parse(data)
-    
-      
-
-      if (Array.isArray(cartDataList)) 
-      cartDataList.forEach((product: Product, index)=>{
-        let cartData: cart  = {
-          ...product,
-          productId: product.id,
-          userId
-        };
-        // delete cartData.id;
-        setTimeout(() => {
-          this.ds.addTocart(cartData).subscribe((res)=>{
-            if(res){
-              console.warn('Item stored in Db');
-              
-            }
-            
-          })
-          
-          if(cartDataList.length === index+1)
-            localStorage.removeItem('localCart')
-        }, 500);
+    let user = localStorage.getItem('user');
+    let userId = user && JSON.parse(user).id;
+   
+    if (data) {
+      let cartDataList: Product[] = JSON.parse(data);
+   
+      cartDataList.forEach((product: Product, index) => {
+      let cartData: cart = { id: 0, userId, date: '', products: [{ productId: product.id, quantity: 1 }], __v: 0 };
         
-      })
-      }
-      setTimeout(() => {
-        this.ds.getCartByUserId(userId);
-      }, 2000);
+        setTimeout(() => {
+          this.ds.addTocart(cartData).subscribe((result:any) => {
+            if (result) {
+              console.warn("data is stored in DB");
+              const newCartId = result.id;
+              this.ds.getCartList(newCartId);
+            }
+          });
+        }, 500);
+   
+        if (cartDataList.length === index + 1) {
+          localStorage.removeItem('localCart');
+        }
+      });
     }
+  }
+
   }
 
 

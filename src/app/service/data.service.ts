@@ -3,13 +3,13 @@ import { EventEmitter, Injectable } from "@angular/core";
 import { Product } from "../model/product.model";
 import { BehaviorSubject, Observable, catchError, map, of, throwError } from "rxjs";
 import { Card } from "primeng/card";
-import { cart } from "../model/user-type";
+import { cart, login } from "../model/user-type";
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
-private currentProductId = 1;
+
   cartData = new EventEmitter<Product[] | []>();
   public search = new BehaviorSubject<string>("");
   
@@ -109,21 +109,22 @@ private currentProductId = 1;
       localStorage.setItem('localCart', JSON.stringify(items));
       this.cartData.emit(items)
     }
-
-
   }
 
   addTocart(cartData: cart){
     return this.http.post('https://fakestoreapi.com/carts', cartData)
   }
 
-  getCartByUserId(id: number){
-    this.http.get<any>('https://fakestoreapi.com/carts').subscribe((res)=>{
-      if(res && res.body){
-        this.cartData.emit(res.body)
+  getCartList(id: number) {
+  return this.http.get('https://fakestoreapi.com/carts/' + id)
+    .subscribe((result: any) => {
+      if (result && result.body) {
+        this.cartData.emit(result.body);
       }
-    })
-  }
+    });
+}
+
+
 
 
 }

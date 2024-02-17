@@ -61,7 +61,7 @@ export class ProductDetailsComponent implements OnInit {
         let user = localStorage.getItem('user');
         let userId = user && JSON.parse(user).id;
         console.warn(userId)
-        let cartData: cart = {
+        let cartData: cart, cartProduct = {
           ...this.currentProduct,
           userId,
           productId: this.currentProduct.id,
