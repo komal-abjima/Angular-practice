@@ -10,6 +10,7 @@ import { JsonPipe } from "@angular/common";
 })
 export class UserService {
   invaliduserAuth = new EventEmitter<boolean>(false)
+  private isAuthenticated:boolean = false;
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -54,11 +55,14 @@ export class UserService {
     // by using token concept 
     this.http.post('https://fakestoreapi.com/auth/login',data).subscribe((res:any)=>{
       if(res){
+
         this.invaliduserAuth.emit(false)
+        this.isAuthenticated = true;
         alert(`Welcome ${data.username}`)
         localStorage.setItem('user', JSON.stringify(data))
         localStorage.setItem('token', res.token)
         this.router.navigate(['/'])
+        // console.log(res.id)
 
       }
       else{
@@ -66,6 +70,10 @@ export class UserService {
         alert('error')
       }
     })
+  }
+
+  isLoggedin(): boolean{
+    return this.isAuthenticated;
   }
 
 

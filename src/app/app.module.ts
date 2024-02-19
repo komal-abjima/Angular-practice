@@ -20,6 +20,8 @@ import { ContactusComponent } from './contactus/contactus.component';
 import { AboutComponent } from './about/about.component';
 import { AuthInterceptor } from './auth-interceptor';
 import { CartPageComponent } from './cart-page/cart-page.component';
+import { DataViewModule } from 'primeng/dataview';
+import { CheckoutComponent } from './checkout/checkout.component';
 
 
 @NgModule({
@@ -34,6 +36,7 @@ import { CartPageComponent } from './cart-page/cart-page.component';
     ContactusComponent,
     AboutComponent,
     CartPageComponent,
+    CheckoutComponent,
 
    
   ],
@@ -47,7 +50,8 @@ import { CartPageComponent } from './cart-page/cart-page.component';
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    CarouselModule
+    CarouselModule,
+    DataViewModule
   ],
   providers: [
     {

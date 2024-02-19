@@ -57,6 +57,15 @@ export class UserAuthComponent implements OnInit {
     
   }
 
+    openLogin(){
+    this.showLogin = true
+  }
+
+  openRegister(){
+    this.showLogin = false
+
+  }
+
 
   login(data: login){
     // console.warn(data);
@@ -77,49 +86,42 @@ export class UserAuthComponent implements OnInit {
       if(result){
          this.authError="User not found"
       }else{
-        this.localCartToRemoteCart();
+       this.localCartToRemoteCart();
       }
       
     })
   }
 
-  openLogin(){
-    this.showLogin = true
-  }
 
-  openRegister(){
-    this.showLogin = false
 
-  }
-
-  localCartToRemoteCart() {
+  localCartToRemoteCart(){
     let data = localStorage.getItem('localCart');
     let user = localStorage.getItem('user');
-    let userId = user && JSON.parse(user).id;
+    let userId = user ? JSON.parse(user).id : null;
+    if(data){
+     let cartDataList:Product[]= JSON.parse(data);
    
-    if (data) {
-      let cartDataList: Product[] = JSON.parse(data);
-   
-      cartDataList.forEach((product: Product, index) => {
+     cartDataList.forEach((product:Product, index)=>{
       let cartData: cart = { id: 0, userId, date: '', products: [{ productId: product.id, quantity: 1 }], __v: 0 };
-        
-        setTimeout(() => {
-          this.ds.addTocart(cartData).subscribe((result:any) => {
-            if (result) {
-              console.warn("data is stored in DB");
-              const newCartId = result.id;
-              this.ds.getCartList(newCartId);
-            }
-          });
-        }, 500);
-   
-        if (cartDataList.length === index + 1) {
-          localStorage.removeItem('localCart');
-        }
-      });
+      //  delete cartData.id;
+       setTimeout(() => {
+         this.ds.addTocart(cartData).subscribe((result)=>{
+           if(result){
+             console.warn("data is stored in DB");
+           }
+         })
+       }, 500);
+       if(cartDataList.length===index+1){
+         localStorage.removeItem('localCart')
+       }
+     })
     }
-  }
+ 
+    setTimeout(() => {
+     this.ds.getCartList(userId)
+    }, 2000);
+     
+   }
 
   }
-
 

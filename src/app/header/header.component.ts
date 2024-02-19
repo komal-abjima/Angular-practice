@@ -58,6 +58,7 @@ export class HeaderComponent implements OnInit {
       {
         label: `Cart(${this.cartItems})`,
         icon: 'pi pi-shopping-cart',
+        routerLink: '/cart'
 
       },
     ];

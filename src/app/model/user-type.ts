@@ -33,6 +33,7 @@ export interface login {
     date: string;
     products: cartProduct[];
     __v: number;
+    price?: 1500;
   }
    
   export interface cartProduct {
@@ -46,4 +47,13 @@ export interface login {
     tax:number,
     delivery:number,
     total:number
+  }
+
+  export interface order {
+    email:string,
+    address:string,
+    contact:string,
+    totalPrice:number,
+    userId:string,
+    id:number|undefined
   }

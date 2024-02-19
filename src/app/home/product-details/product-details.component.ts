@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Product } from '../../model/product.model';
 import { DataService } from '../../service/data.service';
 import { cart } from '../../model/user-type';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-details',
@@ -15,7 +16,7 @@ export class ProductDetailsComponent implements OnInit {
   productQuantity:number=1;
   removeCart: boolean = false;
 
-  constructor(private dataService: DataService){}
+  constructor(private dataService: DataService, private router: Router){}
   ngOnInit(): void {
     let cartData = localStorage.getItem('localCart');
    
@@ -81,6 +82,10 @@ export class ProductDetailsComponent implements OnInit {
   removetoCart(id: number){
     this.dataService.removeItemFromCart(id);
     this.removeCart = false
+  }
+
+  buynow(){
+    this.router.navigate(['/cart'])
   }
 
 }

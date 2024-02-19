@@ -3,7 +3,7 @@ import { EventEmitter, Injectable } from "@angular/core";
 import { Product } from "../model/product.model";
 import { BehaviorSubject, Observable, catchError, map, of, throwError } from "rxjs";
 import { Card } from "primeng/card";
-import { cart, login } from "../model/user-type";
+import { cart, login, order } from "../model/user-type";
 
 @Injectable({
   providedIn: 'root'
@@ -115,14 +115,28 @@ export class DataService {
     return this.http.post('https://fakestoreapi.com/carts', cartData)
   }
 
-  getCartList(id: number) {
-  return this.http.get('https://fakestoreapi.com/carts/' + id)
-    .subscribe((result: any) => {
-      if (result && result.body) {
-        this.cartData.emit(result.body);
-      }
-    });
-}
+  getCartList(userId: number) {
+    console.log(userId)
+    return this.http.get('https://fakestoreapi.com/carts')
+        .subscribe((result: any) => {
+          if (result && result.body) {
+            const userCarts = result.body.filter(cart => cart.userId === userId);
+            this.cartData.emit(userCarts);
+          }
+        });
+    }
+
+    removeToCart(cartId: number) {
+      return this.http.delete('https://fakestoreapi.com/carts/' + cartId);
+    }
+
+    currentCart() {
+      let userStore = localStorage.getItem('user');
+      let userData = userStore && JSON.parse(userStore);
+      return this.http.get<cart[]>('https://fakestoreapi.com/carts');
+    }
+     
+   
 
 
 
